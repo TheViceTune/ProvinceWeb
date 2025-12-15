@@ -69,36 +69,52 @@ const sendMessage = async () => {
   if (!userInput.value.trim() || isLoading.value) return
 
   const userMessage = userInput.value.trim()
+
+  // Add user message to the chat
   messages.value.push({
     role: 'user',
     content: userMessage,
   })
+
   userInput.value = ''
   isLoading.value = true
   scrollToBottom()
 
   try {
+    // 🟡 Debug: Log what we're sending
+    console.log('Sending messages:', messages.value)
+
+    // Prepare the request body EXACTLY as the function expects
+    const requestBody = {
+      model: 'llama3-8b-8192', // Use a model you know works
+      messages: messages.value, // Send the entire array
+      max_tokens: 500,
+      temperature: 0.7,
+    }
+
+    console.log('Request body:', JSON.stringify(requestBody, null, 2))
+
     const response = await fetch('/.netlify/functions/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        model: 'llama3-8b-8192', // Using faster model
-        messages: messages.value.map((msg) => ({
-          role: msg.role,
-          content: msg.content,
-        })),
-        max_tokens: 500,
-        temperature: 0.7,
-      }),
+      body: JSON.stringify(requestBody), // Stringify the entire object
     })
 
+    // 🟡 Debug: Log the raw response
+    console.log('Response status:', response.status, response.statusText)
+
     if (!response.ok) {
-      throw new Error('Failed to get response from server')
+      // Try to get more details from the response
+      const errorText = await response.text()
+      console.error('Error response:', errorText)
+      throw new Error(`Server error: ${response.status} - ${errorText}`)
     }
 
     const data = await response.json()
+    console.log('Success! Response data:', data)
+
     const assistantMessage = data.choices[0].message.content
 
     messages.value.push({
@@ -110,10 +126,10 @@ const sendMessage = async () => {
       hasNewMessage.value = true
     }
   } catch (error) {
-    console.error('Error:', error)
+    console.error('Full error details:', error)
     messages.value.push({
       role: 'assistant',
-      content: 'Sorry, I encountered an error. Please try again.',
+      content: `Sorry, I encountered an error: ${error.message}. Please check the console for details.`,
     })
   } finally {
     isLoading.value = false
