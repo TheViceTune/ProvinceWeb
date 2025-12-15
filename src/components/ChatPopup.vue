@@ -86,7 +86,7 @@ const sendMessage = async () => {
 
     // Prepare the request body EXACTLY as the function expects
     const requestBody = {
-      model: 'llama3-8b-8192', // Use a model you know works
+      model: 'llama-3.1-8b-instant', // Use a model you know works
       messages: messages.value, // Send the entire array
       max_tokens: 500,
       temperature: 0.7,

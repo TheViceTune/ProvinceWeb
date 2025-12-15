@@ -65,7 +65,7 @@ exports.handler = async (event, context) => {
 
   // 5. Prepare the request to Groq
   const postData = JSON.stringify({
-    model: requestData.model || 'llama3-8b-8192',
+    model: requestData.model || 'llama-3.1-8b-instant',
     messages: requestData.messages || [],
     max_tokens: requestData.max_tokens || 500,
     temperature: requestData.temperature || 0.7,
