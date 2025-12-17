@@ -34,6 +34,9 @@ const router = createRouter({
       component: Contact,
     },
   ],
+  scrollBehavior() {
+    return { top: 0 }
+  },
 })
 
 export default router

@@ -3,46 +3,59 @@
     <div class="container">
       <div class="footer-content">
         <div class="footer-section">
-          <h3>Contact Information</h3>
-          <p>Provincial Government Office</p>
-          <p>123 Government Street</p>
-          <p>Capital City, Province</p>
-          <p>Phone: (555) 123-4567</p>
+          <h3>Liên hệ</h3>
+          <p>Sở Văn hóa, Thể thao và Du lịch</p>
+          <p>Tỉnh Quảng Trị, Việt Nam</p>
+          <p>Email: info@quangtri.gov.vn</p>
+          <p>Điện thoại: (0233) 3xxx-xxx</p>
         </div>
         <div class="footer-section">
-          <h3>Quick Links</h3>
+          <h3>Liên kết nhanh</h3>
           <ul>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms of Service</a></li>
-            <li><a href="#">Accessibility</a></li>
-            <li><a href="#">FAQ</a></li>
+            <li><router-link to="/">Trang chủ</router-link></li>
+            <li><router-link to="/about">Về chúng tôi</router-link></li>
+            <li><router-link to="/services">Trải nghiệm</router-link></li>
+            <li><router-link to="/tourism">Du lịch</router-link></li>
           </ul>
         </div>
         <div class="footer-section">
-          <h3>Office Hours</h3>
-          <p>Monday - Friday</p>
-          <p>8:00 AM - 5:00 PM</p>
-          <p class="mt-2">Emergency Services: 24/7</p>
+          <h3>Theo dõi chúng tôi</h3>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook">📘 Facebook</a>
+            <a href="#" aria-label="Instagram">📷 Instagram</a>
+            <a href="#" aria-label="YouTube">🎥 YouTube</a>
+          </div>
+          <p class="mt-2">#ThuGuiQuangTri</p>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>&copy; {{ currentYear }} Provincial Government. All rights reserved.</p>
+        <p>&copy; {{ currentYear }} Quảng Trị Tourism. All rights reserved.</p>
+        <p class="quote">"Quảng Trị không chỉ để đến, mà để cảm – để mở"</p>
       </div>
     </div>
   </footer>
 </template>
 
-<script setup lang="ts">
-import { computed } from 'vue'
+<script lang="ts">
+import { defineComponent, computed } from 'vue'
 
-const currentYear = computed(() => new Date().getFullYear())
+export default defineComponent({
+  name: 'Footer',
+  setup() {
+    const currentYear = computed(() => new Date().getFullYear())
+
+    return {
+      currentYear,
+    }
+  },
+})
 </script>
 
 <style scoped>
 .footer {
-  background: #002952;
+  background: #0f2818;
   color: white;
-  padding: 2rem 0 1rem;
+  padding: 2.5rem 0 1rem;
   margin-top: auto;
 }
 
@@ -55,19 +68,21 @@ const currentYear = computed(() => new Date().getFullYear())
 .footer-content {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  gap: 2.5rem;
   margin-bottom: 2rem;
 }
 
 .footer-section h3 {
-  color: #ffd700;
+  color: #d4af37;
   margin-bottom: 1rem;
   font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .footer-section p {
   margin-bottom: 0.5rem;
   line-height: 1.6;
+  opacity: 0.9;
 }
 
 .footer-section ul {
@@ -75,37 +90,64 @@ const currentYear = computed(() => new Date().getFullYear())
 }
 
 .footer-section ul li {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .footer-section a {
   color: white;
   text-decoration: none;
   transition: color 0.3s;
+  opacity: 0.9;
 }
 
 .footer-section a:hover {
-  color: #ffd700;
+  color: #d4af37;
+  opacity: 1;
+}
+
+.social-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
 }
 
 .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   text-align: center;
 }
 
+.footer-bottom p {
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.quote {
+  font-style: italic;
+  color: #d4af37;
+  font-size: 0.95rem;
+  margin-top: 0.8rem;
+  opacity: 1 !important;
+}
+
 .mt-2 {
-  margin-top: 0.5rem;
+  margin-top: 0.8rem;
+  font-weight: 600;
+  color: #d4af37;
 }
 
 @media (max-width: 768px) {
   .footer-content {
     grid-template-columns: 1fr;
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .footer-section {
     text-align: center;
+  }
+
+  .social-links {
+    align-items: center;
   }
 }
 </style>

@@ -3,8 +3,8 @@
     <div class="header-top">
       <div class="container">
         <div class="logo">
-          <h1>Provincial Government</h1>
-          <p class="tagline">Excellence in Public Service</p>
+          <h1>Quảng Trị</h1>
+          <p class="tagline">Khai phá vẻ đẹp, Khai mở vẻ mình</p>
         </div>
       </div>
     </div>
@@ -16,44 +16,55 @@
           <span></span>
         </button>
         <ul class="nav-list">
-          <li><router-link to="/" @click="closeMobileMenu">Home</router-link></li>
-          <li><router-link to="/about" @click="closeMobileMenu">About</router-link></li>
-          <li><router-link to="/services" @click="closeMobileMenu">Services</router-link></li>
-          <li><router-link to="/tourism" @click="closeMobileMenu">Tourism</router-link></li>
-          <li><router-link to="/contact" @click="closeMobileMenu">Contact</router-link></li>
+          <li><router-link to="/" @click="closeMobileMenu">Trang chủ</router-link></li>
+          <li><router-link to="/about" @click="closeMobileMenu">Về chúng tôi</router-link></li>
+          <li><router-link to="/services" @click="closeMobileMenu">Trải nghiệm</router-link></li>
+          <li><router-link to="/tourism" @click="closeMobileMenu">Du lịch</router-link></li>
+          <li><router-link to="/contact" @click="closeMobileMenu">Liên hệ</router-link></li>
         </ul>
       </div>
     </nav>
   </header>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
 
-const mobileMenuOpen = ref(false)
+export default defineComponent({
+  name: 'Header',
+  setup() {
+    const mobileMenuOpen = ref(false)
 
-const toggleMobileMenu = () => {
-  mobileMenuOpen.value = !mobileMenuOpen.value
-}
+    const toggleMobileMenu = () => {
+      mobileMenuOpen.value = !mobileMenuOpen.value
+    }
 
-const closeMobileMenu = () => {
-  mobileMenuOpen.value = false
-}
+    const closeMobileMenu = () => {
+      mobileMenuOpen.value = false
+    }
+
+    return {
+      mobileMenuOpen,
+      toggleMobileMenu,
+      closeMobileMenu,
+    }
+  },
+})
 </script>
 
 <style scoped>
 .header {
-  background: #003366;
+  background: #1a472a;
   color: white;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .header-top {
-  padding: 1.5rem 0;
-  background: linear-gradient(135deg, #003366 0%, #004080 100%);
+  padding: 1.2rem 0;
+  background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
 }
 
 .container {
@@ -63,17 +74,21 @@ const closeMobileMenu = () => {
 }
 
 .logo h1 {
-  font-size: 1.8rem;
-  margin-bottom: 0.3rem;
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .tagline {
-  font-size: 0.9rem;
-  opacity: 0.9;
+  font-size: 0.85rem;
+  opacity: 0.95;
+  font-style: italic;
+  font-weight: 300;
 }
 
 .nav {
-  background: #002952;
+  background: #153d22;
 }
 
 .mobile-toggle {
@@ -109,26 +124,27 @@ const closeMobileMenu = () => {
   color: white;
   text-decoration: none;
   text-align: center;
-  transition: background 0.3s;
+  transition: all 0.3s;
   border-bottom: 3px solid transparent;
+  font-weight: 500;
 }
 
 .nav-list a:hover {
-  background: #003d7a;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .nav-list a.router-link-active {
-  background: #004080;
-  border-bottom-color: #ffd700;
+  background: rgba(255, 255, 255, 0.15);
+  border-bottom-color: #d4af37;
 }
 
 @media (max-width: 768px) {
   .logo h1 {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
   }
 
   .tagline {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
   }
 
   .mobile-toggle {
