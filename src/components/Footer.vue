@@ -25,7 +25,7 @@
             <a href="#" aria-label="Instagram">📷 Instagram</a>
             <a href="#" aria-label="YouTube">🎥 YouTube</a>
           </div>
-          <p class="mt-2">#ThuGuiQuangTri</p>
+          <p class="mt-2">ThuGuiQuangTri</p>
         </div>
       </div>
       <div class="footer-bottom">
@@ -53,7 +53,7 @@ export default defineComponent({
 
 <style scoped>
 .footer {
-  background: #0f2818;
+  background: #1a0a0f;
   color: white;
   padding: 2.5rem 0 1rem;
   margin-top: auto;
@@ -73,7 +73,7 @@ export default defineComponent({
 }
 
 .footer-section h3 {
-  color: #d4af37;
+  color: #f4c542;
   margin-bottom: 1rem;
   font-size: 1.1rem;
   font-weight: 600;
@@ -101,7 +101,7 @@ export default defineComponent({
 }
 
 .footer-section a:hover {
-  color: #d4af37;
+  color: #f4c542;
   opacity: 1;
 }
 
@@ -124,7 +124,7 @@ export default defineComponent({
 
 .quote {
   font-style: italic;
-  color: #d4af37;
+  color: #f4c542;
   font-size: 0.95rem;
   margin-top: 0.8rem;
   opacity: 1 !important;
@@ -133,7 +133,7 @@ export default defineComponent({
 .mt-2 {
   margin-top: 0.8rem;
   font-weight: 600;
-  color: #d4af37;
+  color: #f4c542;
 }
 
 @media (max-width: 768px) {

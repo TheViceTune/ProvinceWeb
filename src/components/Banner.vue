@@ -29,7 +29,7 @@ export default defineComponent({
 
 <style scoped>
 .banner {
-  background: linear-gradient(135deg, #003366 0%, #004080 50%, #0059b3 100%);
+  background: #77b0a4;
   position: relative;
   overflow: hidden;
   min-height: 250px;

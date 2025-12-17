@@ -8,7 +8,7 @@
     <!-- Photo Exhibition -->
     <section class="exhibition-section">
       <div class="container">
-        <h2 class="section-title">Triển lãm số: Quảng Trị qua những lớp ký ức và cảm xúc</h2>
+        <h2 class="section-title">Triển lãm ảnh: “Quảng Trị – Mở ra điều bạn chưa từng thấy”</h2>
 
         <div class="tabs">
           <button
@@ -25,21 +25,18 @@
           <div v-if="activeTab === 1" class="gallery">
             <div class="gallery-item" v-for="i in 6" :key="i">
               <div class="gallery-placeholder">📷</div>
-              <p class="gallery-caption">{{ getWarCaption(i) }}</p>
             </div>
           </div>
 
           <div v-if="activeTab === 2" class="gallery">
             <div class="gallery-item" v-for="i in 6" :key="i">
               <div class="gallery-placeholder nature">🌿</div>
-              <p class="gallery-caption">{{ getNatureCaption(i) }}</p>
             </div>
           </div>
 
           <div v-if="activeTab === 3" class="gallery">
             <div class="gallery-item" v-for="i in 6" :key="i">
               <div class="gallery-placeholder people">👥</div>
-              <p class="gallery-caption">{{ getPeopleCaption(i) }}</p>
             </div>
           </div>
         </div>
@@ -53,16 +50,15 @@
     <!-- AR/VR Section -->
     <section class="vr-section">
       <div class="container">
-        <h2 class="section-title">AR/VR 360°</h2>
-        <p class="section-subtitle">Trải nghiệm Quảng Trị trước khi bạn thật sự đặt chân tới</p>
+        <h2 class="section-title">Quảng Trị 360°</h2>
+        <p class="section-subtitle">Khám phá Quảng Trị từ mọi góc nhìn</p>
 
         <div class="vr-grid">
           <div class="vr-card" v-for="item in vrLocations" :key="item.id">
             <div class="vr-icon">{{ item.icon }}</div>
             <h3>{{ item.name }}</h3>
             <div class="vr-actions">
-              <button class="btn-vr">🎧 Trải nghiệm VR</button>
-              <button class="btn-save">📍 Lưu vào hành trình</button>
+              <button class="btn-vr">🎧 Trải nghiệm 360°</button>
             </div>
           </div>
         </div>
@@ -100,8 +96,7 @@
         </div>
 
         <div class="cta-center">
-          <button class="btn btn-primary">Chọn hành trình phù hợp</button>
-          <button class="btn btn-secondary">Đăng ký Passport kèm tour</button>
+          <button class="btn btn-primary">Đăng ký Passport</button>
         </div>
       </div>
     </section>
@@ -109,8 +104,7 @@
     <!-- Contest Section -->
     <section class="contest-section">
       <div class="container">
-        <h2 class="section-title">Thư gửi Quảng Trị</h2>
-        <p class="section-subtitle">Khi hành trình trở thành ký ức</p>
+        <h2 class="section-title">Cuộc thi văn hoá</h2>
 
         <div class="contest-info">
           <div class="contest-themes">
@@ -121,18 +115,28 @@
               <span>Mở thể chất</span>
             </div>
           </div>
-
-          <div class="contest-formats">
-            <h3>Hình thức:</h3>
-            <div class="format-tags">
-              <span>📝 Thư</span>
-              <span>📷 Ảnh</span>
-              <span>🎥 Video</span>
-            </div>
-          </div>
         </div>
 
-        <button class="btn btn-accent">Tham gia ngay #ThuGuiQuangTri</button>
+        <!-- Buttons / Entries -->
+        <div class="cta-center">
+          <button class="btn btn-secondary">✉️ Thư gửi Quảng Trị</button>
+
+          <button class="btn btn-accent">📷 Quảng Trị – Mở ra điều bạn chưa từng thấy</button>
+        </div>
+
+        <!-- Added description for PHOTO CONTEST -->
+        <div class="story-quote" style="margin-top: 3rem">
+          <p>
+            Cuộc thi <strong>“Quảng Trị – Mở ra điều bạn chưa từng thấy”</strong> mời bạn chia sẻ
+            những góc nhìn mới mẻ, ít được biết đến về Quảng Trị thông qua ảnh hoặc video ngắn (1–3
+            phút). Mỗi tác phẩm dự thi đi kèm một câu chuyện ngắn về khoảnh khắc, cảm xúc hoặc phát
+            hiện khiến bạn thấy Quảng Trị thật khác. <br /><br />
+            Người tham gia đăng tải tác phẩm công khai trên trang cá nhân, kèm hashtag chính thức và
+            gửi link về Ban Tổ chức theo hướng dẫn trên website. Các bài dự thi hợp lệ sẽ được đăng
+            tải để bình chọn cộng đồng và chấm điểm bởi Ban Giám khảo. Những tác phẩm nổi bật sẽ
+            được trao giải và sử dụng trong các hoạt động truyền thông du lịch Quảng Trị.
+          </p>
+        </div>
       </div>
     </section>
   </div>
@@ -255,7 +259,7 @@ export default defineComponent({
 }
 
 .hero-banner {
-  background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+  background: linear-gradient(135deg, #8b1538 0%, #a91d3a 100%);
   color: white;
   padding: 4rem 2rem;
   text-align: center;
@@ -364,7 +368,7 @@ section {
 }
 
 .gallery-placeholder {
-  background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
+  background: linear-gradient(135deg, #8b1538 0%, #a91d3a 100%);
   height: 250px;
   border-radius: 12px;
   display: flex;
@@ -380,7 +384,7 @@ section {
 }
 
 .gallery-placeholder.nature {
-  background: linear-gradient(135deg, #4a7c59 0%, #2d5a3d 100%);
+  background: linear-gradient(135deg, #8b1538 0%, #a91d3a 100%);
 }
 
 .gallery-placeholder.people {

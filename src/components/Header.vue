@@ -3,8 +3,8 @@
     <div class="header-top">
       <div class="container">
         <div class="logo">
-          <h1>Quảng Trị</h1>
-          <p class="tagline">Khai phá vẻ đẹp, Khai mở vẻ mình</p>
+          <h1 class="font-cocogoose">QUẢNG TRỊ</h1>
+          <p class="tagline font-beauty">Khai phá vẻ đẹp, Khai mở vẻ mình</p>
         </div>
       </div>
     </div>
@@ -54,7 +54,7 @@ export default defineComponent({
 
 <style scoped>
 .header {
-  background: #1a472a;
+  background: #8b1538;
   color: white;
   position: sticky;
   top: 0;
@@ -64,7 +64,7 @@ export default defineComponent({
 
 .header-top {
   padding: 1.2rem 0;
-  background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+  background: linear-gradient(135deg, #ff004c 0%, #9f122e 100%);
 }
 
 .container {
@@ -76,19 +76,18 @@ export default defineComponent({
 .logo h1 {
   font-size: 2rem;
   margin-bottom: 0.2rem;
-  font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .tagline {
-  font-size: 0.85rem;
+  font-size: 1rem;
   opacity: 0.95;
-  font-style: italic;
-  font-weight: 300;
+  letter-spacing: 0.5px;
 }
 
 .nav {
-  background: #153d22;
+  background: #6b0f2b;
 }
 
 .mobile-toggle {
@@ -135,7 +134,7 @@ export default defineComponent({
 
 .nav-list a.router-link-active {
   background: rgba(255, 255, 255, 0.15);
-  border-bottom-color: #d4af37;
+  border-bottom-color: #f4c542;
 }
 
 @media (max-width: 768px) {
@@ -144,7 +143,7 @@ export default defineComponent({
   }
 
   .tagline {
-    font-size: 0.75rem;
+    font-size: 0.85rem;
   }
 
   .mobile-toggle {

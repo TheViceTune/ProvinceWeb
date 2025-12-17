@@ -1,16 +1,11 @@
-// netlify/functions/chat.js
-// ✅ Use the native 'node:https' module for better control
 const https = require('node:https')
 
 exports.handler = async (event, context) => {
-  // 🟡 Log 1: Function execution started
   console.log('=== NETLIFY FUNCTION STARTED ===')
   console.log('HTTP Method:', event.httpMethod)
-  console.log('Path:', event.path)
 
-  // 1. Handle CORS preflight (OPTIONS) request
+  // Handle CORS preflight
   if (event.httpMethod === 'OPTIONS') {
-    console.log('Handling CORS preflight request')
     return {
       statusCode: 200,
       headers: {
@@ -22,51 +17,75 @@ exports.handler = async (event, context) => {
     }
   }
 
-  // 2. Only allow POST requests
+  // Only allow POST requests
   if (event.httpMethod !== 'POST') {
-    console.log('❌ Blocked: Method not allowed')
     return {
       statusCode: 405,
       body: JSON.stringify({ error: 'Method not allowed' }),
     }
   }
 
-  // 3. Try to parse the incoming request body
+  // Parse request body
   let requestData
   try {
     requestData = JSON.parse(event.body)
-    console.log('✅ Parsed request body. Message count:', requestData.messages?.length)
+    console.log('✅ Parsed request. Message count:', requestData.messages?.length)
   } catch (parseError) {
-    console.log('❌ Failed to parse JSON body:', parseError.message)
+    console.error('❌ Failed to parse JSON:', parseError.message)
     return {
       statusCode: 400,
-      body: JSON.stringify({ error: 'Invalid JSON in request body' }),
+      body: JSON.stringify({ error: 'Invalid JSON' }),
     }
   }
 
-  // 4. Check for the critical API Key
+  // Check for API Key
   const apiKey = process.env.GROQ_API_KEY
   if (!apiKey) {
-    // 🚨 This is the MOST LIKELY cause of a 403
-    console.error('🚨 CRITICAL ERROR: GROQ_API_KEY environment variable is NOT SET.')
-    console.error('Please set it in Netlify dashboard: Site Settings > Environment Variables')
+    console.error('🚨 CRITICAL: GROQ_API_KEY is missing!')
     return {
       statusCode: 500,
       body: JSON.stringify({
         error: 'Server configuration error',
-        details: 'API key is missing on the server.',
+        details: 'API key is missing',
       }),
     }
-  } else {
-    // Log a safe portion of the key for verification
-    const keyPreview = apiKey.substring(0, 7) + '...'
-    console.log('✅ API Key is present (starts with):', keyPreview)
   }
 
-  // 5. Prepare the request to Groq
+  console.log('✅ API Key is present')
+
+  // Create enhanced messages with system prompt
+  const enhancedMessages = [
+    {
+      role: 'system',
+      content: `Bạn là "Bé Tiêu" - trợ lý ảo thân thiện của du lịch Quảng Trị. Hãy trả lời các câu hỏi về du lịch Quảng Trị một cách nhiệt tình, hữu ích và gần gũi. Luôn kết thúc câu trả lời bằng cách mời người dùng hỏi thêm hoặc đề xuất hỗ trợ cụ thể.
+
+Dưới đây là một số câu hỏi mẫu và cách trả lời để bạn tham khảo phong cách:
+
+1. Câu hỏi: "Lần đầu đến Quảng Trị thì nên đi đâu?"
+ Trả lời mẫu:
+ "Nếu lần đầu đến Quảng Trị, bạn có thể ghé các điểm tiêu biểu như Thành Cổ Quảng Trị, cầu Hiền Lương - sông Bến Hải để cảm nhận lịch sử, sau đó dành thời gian cho biển Cửa Tùng hoặc khám phá hang động và thiên nhiên xung quanh. Bé Tiêu có thể gợi ý cho bạn một hành trình 2-3 ngày phù hợp với thời gian và sở thích nữa đó."
+
+2. Câu hỏi: "Du lịch Quảng Trị mùa nào đẹp nhất?"
+ Trả lời mẫu:
+ "Thời điểm dễ chịu để du lịch Quảng Trị là từ khoảng tháng 3 đến tháng 8, trời nắng đẹp, thuận tiện tham quan biển, di tích và thiên nhiên. Nếu bạn thích không khí yên tĩnh, Bé Tiêu có thể gợi ý những hành trình nhẹ nhàng, tránh cao điểm đông khách."
+
+3. Câu hỏi: "Ở Quảng Trị có hoạt động trải nghiệm gì đặc biệt không?"
+ Trả lời mẫu:
+ "Quảng Trị có nhiều trải nghiệm đặc biệt như tham quan di tích lịch sử, khám phá hang động, biển, làng nghề và đời sống người dân địa phương. Bạn cũng có thể trải nghiệm AR/VR 360° trên website để 'đi thử' trước khi lên kế hoạch."
+
+4. Câu hỏi: "Passport Quảng Trị là gì và bắt buộc đăng ký với du khách không?"
+ Trả lời mẫu:
+ "Passport Quảng Trị là hình thức ghi dấu hành trình du lịch của bạn qua từng điểm đến bằng check-in và con dấu trải nghiệm. Bạn không bắt buộc phải đăng ký, nhưng Passport sẽ giúp chuyến đi thú vị hơn với quà lưu niệm, ưu đãi dịch vụ và kỷ niệm được lưu lại suốt hành trình. Bé Tiêu có thể hướng dẫn bạn đăng ký ngay nếu bạn muốn nhé!"
+
+Hãy giữ phong cách thân thiện, nhiệt tình và luôn sẵn sàng giúp đỡ như trong các ví dụ trên.`,
+    },
+    ...(requestData.messages || []),
+  ]
+
+  // Prepare Groq API request
   const postData = JSON.stringify({
     model: requestData.model || 'llama-3.1-8b-instant',
-    messages: requestData.messages || [],
+    messages: enhancedMessages,
     max_tokens: requestData.max_tokens || 500,
     temperature: requestData.temperature || 0.7,
   })
@@ -84,28 +103,18 @@ exports.handler = async (event, context) => {
   }
 
   console.log('🟡 Sending request to Groq API...')
-  console.log('Target Host:', groqOptions.hostname)
-  console.log('Target Path:', groqOptions.path)
-  console.log('Request Model:', postData.model || 'llama3-8b-8192')
 
-  // 6. Make the request to Groq API and return a Promise
+  // Make request to Groq API
   return new Promise((resolve, reject) => {
     const req = https.request(groqOptions, (groqRes) => {
-      console.log(`🟡 Groq API Response Status: ${groqRes.statusCode} ${groqRes.statusMessage}`)
-      console.log('Groq API Response Headers:', JSON.stringify(groqRes.headers))
+      console.log(`🟡 Groq Response Status: ${groqRes.statusCode}`)
 
       let responseBody = ''
       groqRes.on('data', (chunk) => (responseBody += chunk))
 
       groqRes.on('end', () => {
-        console.log('✅ Received full response from Groq API')
+        console.log('✅ Received full response from Groq')
 
-        // 🟡 Log the first 500 chars of the response for debugging
-        const logPreview =
-          responseBody.length > 500 ? responseBody.substring(0, 500) + '...' : responseBody
-        console.log('Response Body Preview:', logPreview)
-
-        // Forward the Groq API response back to your Vue app
         resolve({
           statusCode: groqRes.statusCode,
           headers: {
@@ -117,32 +126,28 @@ exports.handler = async (event, context) => {
       })
     })
 
-    // 7. Handle request errors (like network issues)
     req.on('error', (error) => {
-      console.error('❌ NETWORK ERROR requesting Groq API:', error)
+      console.error('❌ Network error:', error)
       resolve({
         statusCode: 502,
         body: JSON.stringify({
-          error: 'Network error communicating with AI service',
+          error: 'Network error',
           details: error.message,
         }),
       })
     })
 
-    // 8. Handle request timeout
     req.setTimeout(30000, () => {
-      // 30 second timeout
       req.destroy()
-      console.error('❌ TIMEOUT ERROR: Request to Groq API took too long.')
+      console.error('❌ Request timeout')
       resolve({
         statusCode: 504,
-        body: JSON.stringify({ error: 'Request to AI service timed out' }),
+        body: JSON.stringify({ error: 'Request timeout' }),
       })
     })
 
-    // Send the data to Groq
     req.write(postData)
     req.end()
-    console.log('🟡 HTTPS request to Groq has been sent.')
+    console.log('🟡 Request sent to Groq')
   })
 }

@@ -4,7 +4,7 @@
     <section class="hero">
       <div class="video-container">
         <iframe
-          src="https://www.youtube.com/embed/byvuZYhXi-M?autoplay=1&mute=1&start=46&loop=1&playlist=byvuZYhXi-M"
+          src="https://www.youtube.com/embed/byvuZYhXi-M?autoplay=1&mute=1&start=46&loop=1&playlist=byvuZYhXi-M&controls=0"
           frameborder="0"
           allow="autoplay; encrypted-media"
           allowfullscreen
@@ -12,7 +12,10 @@
       </div>
       <div class="hero-overlay">
         <div class="container hero-content">
-          <h1 class="hero-title">Quảng Trị – Khai phá vẻ đẹp, Khai mở vẻ mình</h1>
+          <h1 class="hero-title">
+            <span class="font-cocogoose">QUẢNG TRỊ</span>
+            <span class="hero-subtitle-main font-beauty">Khai phá vẻ đẹp, Khai mở vẻ mình</span>
+          </h1>
           <p class="hero-subtitle">
             Nơi ký ức lịch sử, kỳ quan thiên nhiên và hành trình nội tâm giao thoa
           </p>
@@ -28,7 +31,7 @@
     <!-- Quick Explore -->
     <section class="quick-explore">
       <div class="container">
-        <h2 class="section-title">Quick Explore - Khám phá nhanh</h2>
+        <h2 class="section-title font-cocogoose">Quick Explore - Khám phá nhanh</h2>
         <div class="explore-grid">
           <div class="explore-card" @mouseover="activeCard = 1" @mouseleave="activeCard = null">
             <div class="card-front">
@@ -114,6 +117,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
   object-fit: cover;
+  pointer-events: none;
 }
 
 .hero-overlay {
@@ -122,7 +126,7 @@ export default defineComponent({
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%);
+  background: linear-gradient(to bottom, rgba(139, 21, 56, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,13 +139,23 @@ export default defineComponent({
 }
 
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 1.5rem;
+}
+
+.hero-title .font-cocogoose {
+  font-size: 4rem;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+  letter-spacing: 3px;
+}
+
+.hero-subtitle-main {
+  font-size: 2.5rem;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-  line-height: 1.2;
-  font-style: italic;
-  letter-spacing: -1px;
+  letter-spacing: 1px;
+  color: #f4c542;
 }
 
 .hero-subtitle {
@@ -171,19 +185,19 @@ export default defineComponent({
 }
 
 .btn-primary {
-  background: #2d5a3d;
+  background: #8b1538;
   color: white;
 }
 
 .btn-primary:hover {
-  background: #1a472a;
+  background: #6b0f2b;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .btn-secondary {
   background: white;
-  color: #2d5a3d;
+  color: #8b1538;
 }
 
 .btn-secondary:hover {
@@ -192,12 +206,12 @@ export default defineComponent({
 }
 
 .btn-accent {
-  background: #d4af37;
-  color: #0f2818;
+  background: #f4c542;
+  color: #1a0a0f;
 }
 
 .btn-accent:hover {
-  background: #c19a2e;
+  background: #e0b030;
   transform: translateY(-2px);
 }
 
@@ -216,8 +230,8 @@ export default defineComponent({
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: #1a472a;
-  font-weight: 700;
+  color: #8b1538;
+  letter-spacing: 1px;
 }
 
 .explore-grid {
@@ -244,7 +258,7 @@ export default defineComponent({
   position: absolute;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #2d5a3d 0%, #1a472a 100%);
+  background: linear-gradient(135deg, #8b1538 0%, #a91d3a 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,7 +285,7 @@ export default defineComponent({
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #d4af37;
+  background: #f4c542;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -287,7 +301,7 @@ export default defineComponent({
 .card-back p {
   font-size: 1.1rem;
   text-align: center;
-  color: #0f2818;
+  color: #1a0a0f;
   font-weight: 500;
   line-height: 1.6;
 }
@@ -298,8 +312,12 @@ export default defineComponent({
     min-height: 500px;
   }
 
-  .hero-title {
-    font-size: 2rem;
+  .hero-title .font-cocogoose {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle-main {
+    font-size: 1.5rem;
   }
 
   .hero-subtitle {

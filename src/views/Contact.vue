@@ -188,7 +188,7 @@ export default defineComponent({
 }
 
 .hero-banner {
-  background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%);
+  background: linear-gradient(135deg, #8b1538 0%, #a91d3a 100%);
   color: white;
   padding: 4rem 2rem;
   text-align: center;
