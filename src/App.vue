@@ -15,12 +15,20 @@ import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import ChatPopup from './components/ChatPopup.vue'
 
+// Import your logo
+import logo from '@/assets/logoquangtri.png'
+
 export default defineComponent({
   name: 'App',
   components: {
     Header,
     Footer,
     ChatPopup,
+  },
+  setup() {
+    return {
+      logo, // Make it available in template if needed
+    }
   },
 })
 </script>
